@@ -44,6 +44,8 @@
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\StartupController.cs" />
     <Compile Include="Controllers\StateController.cs" />
+    <Compile Include="Controllers\States\DisplayLevelBuilderState.cs" />
+    <Compile Include="Controllers\States\DisplayMainMenuState.cs" />
     <Compile Include="Controllers\States\InitialState.cs" />
     <Compile Include="Controllers\States\LevelCompleteState.cs" />
     <Compile Include="Controllers\States\LevelInProgressState.cs" />
@@ -51,12 +53,16 @@
     <Compile Include="Controllers\States\States.cs" />
     <Compile Include="Models\Interfaces\IPlayer.cs" />
     <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\LevelBuilder.cs" />
+    <Compile Include="Models\MainMenu.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Renderers\AbstractRenderer.cs" />
     <Compile Include="Views\Renderers\MonoGameRenderer.cs" />
     <Compile Include="Views\UIInitialiser.cs" />
+    <Compile Include="Views\UI\LevelBuilderUI.cs" />
     <Compile Include="Views\UI\LevelUI.cs" />
+    <Compile Include="Views\UI\MainMenuUI.cs" />
     <Compile Include="Views\UI\SpriteUI.cs" />
   </ItemGroup>
   <ItemGroup>

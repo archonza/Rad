@@ -14,7 +14,8 @@ namespace Jumper1.Controllers.States
 
       public override void Execute()
       {
-         Level.InitialiseLevel();
+         //Level.InitialiseLevel();
+         MainMenu.InitialiseMainMenu();
       }
    }
 }

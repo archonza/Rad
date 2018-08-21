@@ -20,7 +20,8 @@ namespace Jumper1.Controllers.States
       public abstract void Execute();
       public void Draw(MonoGameRenderer renderer)
       {
-         renderer.DrawLevel(Level.Number);
+         renderer.DrawMainMenu(MainMenu.ItemTextList, MainMenu.ItemPositionXList, MainMenu.ItemPositionYList);
+         //renderer.DrawLevel(Level.Number);
       }
    }
 }

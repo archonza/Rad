@@ -13,7 +13,7 @@ namespace Jumper1.Views
 {
    public static class UIInitialiser
    {
-      public static LevelUI CreateLevel(ContentManager content, GraphicsDevice graphicsDevice, string backgroundPath)
+      public static LevelUI CreateLevelUI(ContentManager content, GraphicsDevice graphicsDevice, string backgroundPath)
       {
          Texture2D backgroundTexture = content.Load<Texture2D>(backgroundPath);
          Rectangle backgroundTextureBox = new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height);
@@ -21,6 +21,12 @@ namespace Jumper1.Views
          LevelUI level = new LevelUI(backgroundSprite);
 
          return level;
+      }
+
+      public static MainMenuUI CreateMainMenuUI(ContentManager content, string fontPath)
+      {
+         MainMenuUI mainMenuUI = new MainMenuUI(content.Load<SpriteFont>(fontPath), Color.White);
+         return mainMenuUI;
       }
    }
 }

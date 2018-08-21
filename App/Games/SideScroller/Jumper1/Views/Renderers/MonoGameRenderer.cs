@@ -16,13 +16,16 @@ namespace Jumper1.Views.Renderers
       private GraphicsDevice graphicsDevice = StartupController.game.GraphicsDevice;
       private SpriteBatch spriteBatch;
       public List<LevelUI> levelUIList;
+      public MainMenuUI mainMenuUI;
 
       public MonoGameRenderer()
       {
          levelUIList = new List<LevelUI>();
-         levelUIList.Add(UIInitialiser.CreateLevel(content, graphicsDevice, "Level/LevelBackground1"));
-         levelUIList.Add(UIInitialiser.CreateLevel(content, graphicsDevice, "Level/LevelBackground2"));
-         levelUIList.Add(UIInitialiser.CreateLevel(content, graphicsDevice, "Level/LevelBackground3"));
+         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/LevelBackground1"));
+         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/LevelBackground2"));
+         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/LevelBackground3"));
+
+         mainMenuUI = UIInitialiser.CreateMainMenuUI(content, "MainMenu/MainMenuFont");
       }
 
       public override void Draw()
@@ -34,6 +37,12 @@ namespace Jumper1.Views.Renderers
       {
          spriteBatch = StartupController.game.spriteBatch;
          levelUIList[levelNumber-1].Draw(spriteBatch);
+      }
+
+      public override void DrawMainMenu(List<string> textItems, List<int> textItemsPositionX, List<int> textItemsPositionY)
+      {
+         spriteBatch = StartupController.game.spriteBatch;
+         mainMenuUI.Draw(spriteBatch, textItems, textItemsPositionX, textItemsPositionY);
       }
 
       public override void MovePlayer(int currentPosition, int newPosition)

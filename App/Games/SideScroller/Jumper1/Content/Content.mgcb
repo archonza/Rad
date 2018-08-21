@@ -49,3 +49,10 @@
 /processorParam:TextureFormat=Color
 /build:Level/LevelBackground3.png
 
+#begin MainMenu/MainMenuFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:MainMenu/MainMenuFont.spritefont
+
