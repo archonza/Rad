@@ -29,6 +29,10 @@ namespace Jumper1.Controllers
       /// </summary>
       protected override void Initialize()
       {
+         graphics.PreferredBackBufferWidth = 800;
+         graphics.PreferredBackBufferHeight = 600;
+         graphics.ApplyChanges();
+
          // TODO: Add your initialization logic here
          renderer = new MonoGameRenderer();
 
@@ -70,14 +74,17 @@ namespace Jumper1.Controllers
       {
          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
+
+         StateController.CurrentState.Execute();
+         //StateController.ChangeState();
          //System.Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
-         if (gameTime.TotalGameTime.TotalSeconds > levelDuration)
-         {
-            System.Console.WriteLine(gameTime.TotalGameTime.TotalSeconds);
-            levelDuration = levelDuration + 2.0;
-            StateController.CurrentState.Execute();
-            StateController.ChangeState();
-         }
+         //if (gameTime.TotalGameTime.TotalSeconds > levelDuration)
+         //{
+         //   System.Console.WriteLine(gameTime.TotalGameTime.TotalSeconds);
+         //   levelDuration = levelDuration + 2.0;
+         //   StateController.CurrentState.Execute();
+         //   StateController.ChangeState();
+         //}
          // TODO: Add your update logic here
 
          base.Update(gameTime);

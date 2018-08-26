@@ -20,7 +20,24 @@ namespace Jumper1.Controllers.States
       public abstract void Execute();
       public void Draw(MonoGameRenderer renderer)
       {
-         renderer.DrawMainMenu(MainMenu.ItemTextList, MainMenu.ItemPositionXList, MainMenu.ItemPositionYList);
+         if (StateController.CurrentState == StateController.States["DisplayMainMenuState"])
+         {
+            renderer.DrawMainMenu(MainMenu.ItemTextList, MainMenu.ItemPositionXList, MainMenu.ItemPositionYList);
+         }
+         else if (StateController.CurrentState == StateController.States["DisplayLevelBuilderState"])
+         {
+            renderer.DrawLevelBuilder();
+         }
+         else if (StateController.CurrentState == StateController.States["DisplayLevelState"])
+         {
+            renderer.DrawLevel(Level.Number);
+            //renderer.DrawCharacter();
+         }
+         else if (StateController.CurrentState == StateController.States["MoveCharacterState"])
+         {
+            renderer.DrawCharacter(Character.CurrentPositionX, Character.CurrentPositionY);
+         }
+
          //renderer.DrawLevel(Level.Number);
       }
    }

@@ -17,15 +17,21 @@ namespace Jumper1.Views.Renderers
       private SpriteBatch spriteBatch;
       public List<LevelUI> levelUIList;
       public MainMenuUI mainMenuUI;
+      public LevelBuilderUI levelBuilderUI;
+      public CharacterUI characterUI;
 
       public MonoGameRenderer()
       {
          levelUIList = new List<LevelUI>();
-         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/LevelBackground1"));
-         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/LevelBackground2"));
-         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/LevelBackground3"));
+         levelUIList.Add(UIInitialiser.CreateLevelUI(content, graphicsDevice, "Level/Level1"));
 
          mainMenuUI = UIInitialiser.CreateMainMenuUI(content, "MainMenu/MainMenuFont");
+
+         levelBuilderUI = UIInitialiser.CreateLevelBuilderUI(content);
+         levelBuilderUI = UIInitialiser.CreateLevelBuilderUI(content);
+         levelBuilderUI = UIInitialiser.CreateLevelBuilderUI(content);
+         levelBuilderUI = UIInitialiser.CreateLevelBuilderUI(content);
+         characterUI = UIInitialiser.CreateCharacterUI(content);
       }
 
       public override void Draw()
@@ -39,10 +45,22 @@ namespace Jumper1.Views.Renderers
          levelUIList[levelNumber-1].Draw(spriteBatch);
       }
 
+      public override void DrawCharacter(int positionX, int positionY)
+      {
+         spriteBatch = StartupController.game.spriteBatch;
+         characterUI.Draw(spriteBatch);
+      }
+
       public override void DrawMainMenu(List<string> textItems, List<int> textItemsPositionX, List<int> textItemsPositionY)
       {
          spriteBatch = StartupController.game.spriteBatch;
          mainMenuUI.Draw(spriteBatch, textItems, textItemsPositionX, textItemsPositionY);
+      }
+
+      public override void DrawLevelBuilder()
+      {
+         spriteBatch = StartupController.game.spriteBatch;
+         levelBuilderUI.Draw(spriteBatch);
       }
 
       public override void MovePlayer(int currentPosition, int newPosition)

@@ -10,7 +10,9 @@ namespace Jumper1.Views.Renderers
    {
       public abstract void Draw();
       public abstract void DrawLevel(int levelNumber);
+      public abstract void DrawCharacter(int positionX, int positionY);
       public abstract void DrawMainMenu(List<string> textList, List<int> positionXList, List<int> positionYList);
+      public abstract void DrawLevelBuilder();
       public abstract void MovePlayer(int currentPosition, int newPosition);
    }
 }
