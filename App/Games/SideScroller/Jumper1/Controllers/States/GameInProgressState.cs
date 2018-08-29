@@ -13,7 +13,6 @@ namespace Jumper1.Controllers.States
    {
       TimeSpan turnLeftTimer = TimeSpan.Zero;
       TimeSpan turnRightTimer = TimeSpan.Zero;
-      bool hasJumped = false;
       bool turnRight = false;
       bool turnLeft = false;
 
@@ -25,52 +24,38 @@ namespace Jumper1.Controllers.States
          turnLeftTimer += gameTime.ElapsedGameTime;
          turnRightTimer += gameTime.ElapsedGameTime;
 
-         Character.Update();
-
          if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Left)) &&
              (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Right)))
          {
-            //turnLeftTimer += gameTime.ElapsedGameTime;
-            //Console.WriteLine("Execute1");
-            //Character.MoveLeft(turnLeftTimer.TotalMilliseconds);
-            Console.WriteLine("Execute3");
+            turnLeft = false;
+            turnRight = false;
          }
          else if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Left))
          {
             turnLeftTimer += gameTime.ElapsedGameTime;
-            //Console.WriteLine("Execute1");
-            Character.MoveLeft(turnLeftTimer.TotalMilliseconds);
+            turnLeft = true;
          }
          else if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Right))
          {
-            //Console.WriteLine("Execute2");
             turnRightTimer += gameTime.ElapsedGameTime;
-            Character.MoveRight(turnRightTimer.TotalMilliseconds);
+            turnRight = true;
          }
 
-         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Space))
+         if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Space)) &&
+             ((Character.JumpState == EJumpState.Initial) || (Character.JumpState == EJumpState.JumpComplete)))
          {
-            Character.JumpInitiate();
-            hasJumped = true;
-         }
-         else
-         {
-            
+            Character.JumpState = EJumpState.JumpInitiate;
          }
 
-         if (hasJumped == true)
+         if (turnLeft == true)
          {
-            Character.JumpProgress();
+            turnRight = false;
+            Character.Update(turnLeftTimer.TotalMilliseconds, turnLeft, turnRight);
          }
-
-         if (Character.CurrentPositionY + 31 >= 447)
+         else if (turnRight == true)
          {
-            hasJumped = false;
-         }
-
-         if (hasJumped == false)
-         {
-            Character.JumpComplete();
+            turnLeft = false;
+            Character.Update(turnRightTimer.TotalMilliseconds, turnLeft, turnRight);
          }
 
          if (Keyboard.GetState().IsKeyDown(Keys.Left) == false)
