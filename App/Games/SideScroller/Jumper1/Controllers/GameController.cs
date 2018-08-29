@@ -31,6 +31,8 @@ namespace Jumper1.Controllers
       {
          graphics.PreferredBackBufferWidth = 800;
          graphics.PreferredBackBufferHeight = 600;
+         IsFixedTimeStep = true; // Ensure draw is always called after update
+         graphics.ToggleFullScreen();
          graphics.ApplyChanges();
 
          // TODO: Add your initialization logic here
@@ -38,7 +40,7 @@ namespace Jumper1.Controllers
 
          StateController.Initialise();
          StateController.CurrentState = StateController.States["InitialState"];
-         StateController.CurrentState.Execute();
+         StateController.CurrentState.Execute(null);
          StateController.ChangeState();
 
          base.Initialize();
@@ -75,7 +77,7 @@ namespace Jumper1.Controllers
          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-         StateController.CurrentState.Execute();
+         StateController.CurrentState.Execute(gameTime);
          //StateController.ChangeState();
          //System.Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
          //if (gameTime.TotalGameTime.TotalSeconds > levelDuration)
@@ -96,9 +98,12 @@ namespace Jumper1.Controllers
       /// <param name="gameTime">Provides a snapshot of timing values.</param>
       protected override void Draw(GameTime gameTime)
       {
-         GraphicsDevice.Clear(Color.CornflowerBlue);
+         if (StateController.CurrentState == StateController.States["DrawMainMenuState"])
+         {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+         }
          spriteBatch.Begin();
-         StateController.CurrentState.Draw(renderer);
+         StateController.CurrentState.Draw(gameTime, renderer);
          spriteBatch.End();
          // TODO: Add your drawing code here
 

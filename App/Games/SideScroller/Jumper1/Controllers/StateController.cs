@@ -1,4 +1,5 @@
 ﻿using Jumper1.Controllers.States;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +13,26 @@ namespace Jumper1.Controllers
       public static State CurrentState;
       public static Dictionary<string, State> States = new Dictionary<string, State>();
       private static InitialState initialState;
-      private static DisplayMainMenuState displayMainMenuState;
-      private static DisplayLevelBuilderState displayLevelBuilderState;
-      private static DisplayLevelState displayLevelState;
-      private static MoveCharacterState moveCharacterState;
-      //private static LevelInProgressState levelInProgressState;
+      private static DrawMainMenuState drawMainMenuState;
+      private static DrawLevelBuilderState drawLevelBuilderState;
+      private static DrawLevelState drawLevelState;
+      private static DrawCharacterState drawCharacterState;
+      private static DrawCompleteState drawCompleteState;
+      private static GameInProgressState gameInProgressState;
       //private static LevelCompleteState levelCompleteState;
       //private static NextLevelState nextLevelState;
 
       public static void Initialise()
       {
-         //levelInProgressState = new LevelInProgressState(levelCompleteState);
          //levelCompleteState = new LevelCompleteState(nextLevelState);
          //nextLevelState = new NextLevelState(levelInProgressState);
-         displayMainMenuState = new DisplayMainMenuState(initialState);
-         displayLevelState = new DisplayLevelState(initialState);
-         displayLevelBuilderState = new DisplayLevelBuilderState(initialState);
-         initialState = new InitialState(displayMainMenuState);
-         moveCharacterState = new MoveCharacterState(initialState);
+         gameInProgressState = new GameInProgressState(initialState);
+         drawCompleteState = new DrawCompleteState(initialState);
+         drawCharacterState = new DrawCharacterState(initialState);
+         drawLevelState = new DrawLevelState(initialState);
+         drawLevelBuilderState = new DrawLevelBuilderState(initialState);
+         drawMainMenuState = new DrawMainMenuState(initialState);
+         initialState = new InitialState(drawMainMenuState);
          //displayMainMenuState.NextState = displayLevelBuilderState;
          //displayLevelBuilderState.NextState = initialState;
          //displayLevelState.NextState = initialState;
@@ -38,11 +41,12 @@ namespace Jumper1.Controllers
          //nextLevelState.NextState = levelInProgressState;
 
          States.Add("InitialState", initialState);
-         States.Add("DisplayMainMenuState", displayMainMenuState);
-         States.Add("DisplayLevelBuilderState", displayLevelBuilderState);
-         States.Add("DisplayLevelState", displayLevelState);
-         States.Add("MoveCharacterState", moveCharacterState);
-         //States.Add("LevelInProgressState", levelInProgressState);
+         States.Add("DrawMainMenuState", drawMainMenuState);
+         States.Add("DrawLevelBuilderState", drawLevelBuilderState);
+         States.Add("DrawLevelState", drawLevelState);
+         States.Add("DrawCharacterState", drawCharacterState);
+         States.Add("DrawCompleteState", drawCompleteState);
+         States.Add("GameInProgressState", gameInProgressState);
          //States.Add("LevelCompleteState", levelCompleteState);
          //States.Add("NextLevelState", nextLevelState);
 

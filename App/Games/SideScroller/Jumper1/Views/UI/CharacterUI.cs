@@ -16,9 +16,18 @@ namespace Jumper1.Views.UI
          this.sprite = sprite;
       }
 
-      public void Draw(SpriteBatch spriteBatch)
+      public void Draw(SpriteBatch spriteBatch, float positionX, float positionY)
       {
+         sprite.Rectangle.X = (int)positionX;
+         sprite.Rectangle.Y = (int)positionY;
          spriteBatch.Draw(sprite.Image, sprite.Rectangle, Color.White);
+      }
+
+      public void Clear(SpriteBatch spriteBatch, float positionX, float positionY)
+      {
+         sprite.Rectangle.X = (int)positionX;
+         sprite.Rectangle.Y = (int)positionY;
+         spriteBatch.Draw(sprite.Image, sprite.Rectangle, Color.Black);
       }
    }
 

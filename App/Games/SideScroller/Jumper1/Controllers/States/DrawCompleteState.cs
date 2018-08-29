@@ -1,5 +1,5 @@
-﻿using Jumper1.Models;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Jumper1.Controllers.States
 {
-   class NextLevelState : State
+   class DrawCompleteState : State
    {
-      public NextLevelState(State nextState)
+      public DrawCompleteState(State nextState)
           : base(nextState) { }
 
       public override void Execute(GameTime gameTime)
       {
-         Level.NextLevel();
+         NextState = StateController.States["GameInProgressState"];
+         StateController.ChangeState();
       }
    }
 }

@@ -23,10 +23,10 @@ namespace Jumper1.Views
          return level;
       }
 
-      public static CharacterUI CreateCharacterUI(ContentManager content, int characterStartPositionX, int characterStartPositionY)
+      public static CharacterUI CreateCharacterUI(ContentManager content)
       {
          Texture2D characterTexture = content.Load<Texture2D>("Character/BoxCharacter1_17x31");
-         Rectangle characterTextureBox = new Rectangle(characterStartPositionX, characterStartPositionY, 17, 31);
+         Rectangle characterTextureBox = new Rectangle(0, 447-31, 17, 31);
          SpriteUI characterSprite = new SpriteUI(characterTextureBox, characterTexture);
          CharacterUI character = new CharacterUI(characterSprite);
 

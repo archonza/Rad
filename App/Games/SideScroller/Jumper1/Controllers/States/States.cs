@@ -1,5 +1,6 @@
 ﻿using Jumper1.Models;
 using Jumper1.Views.Renderers;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +18,37 @@ namespace Jumper1.Controllers.States
 
       public State NextState { get; set; }
 
-      public abstract void Execute();
-      public void Draw(MonoGameRenderer renderer)
+      public abstract void Execute(GameTime gameTime);
+      public void Draw(GameTime gameTime, MonoGameRenderer renderer)
       {
-         if (StateController.CurrentState == StateController.States["DisplayMainMenuState"])
+         if (StateController.CurrentState == StateController.States["DrawMainMenuState"])
          {
             renderer.DrawMainMenu(MainMenu.ItemTextList, MainMenu.ItemPositionXList, MainMenu.ItemPositionYList);
          }
-         else if (StateController.CurrentState == StateController.States["DisplayLevelBuilderState"])
+         else if (StateController.CurrentState == StateController.States["DrawLevelBuilderState"])
          {
             renderer.DrawLevelBuilder();
          }
-         else if (StateController.CurrentState == StateController.States["DisplayLevelState"])
+         else if (StateController.CurrentState == StateController.States["DrawLevelState"])
          {
             renderer.DrawLevel(Level.Number);
+            NextState = StateController.States["DrawCharacterState"];
+            StateController.ChangeState();
+            //NextState = StateController.States["MoveCharacterState"];
+            //StateController.ChangeState();
+            //renderer.DrawCharacter(Character.CurrentPositionX, Character.CurrentPositionY);
             //renderer.DrawCharacter();
          }
-         else if (StateController.CurrentState == StateController.States["MoveCharacterState"])
+         else if (StateController.CurrentState == StateController.States["DrawCharacterState"])
          {
+            renderer.DrawCharacter(Character.CurrentPositionX, Character.CurrentPositionY);
+            NextState = StateController.States["DrawCompleteState"];
+            StateController.ChangeState();
+         }
+         else if (StateController.CurrentState == StateController.States["GameInProgressState"])
+         {
+            Console.WriteLine("Draw1");
+            renderer.ClearCharacter(Character.PreviousPositionX, Character.PreviousPositionY);
             renderer.DrawCharacter(Character.CurrentPositionX, Character.CurrentPositionY);
          }
 

@@ -1,22 +1,20 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Jumper1.Models;
-using Microsoft.Xna.Framework;
 
 namespace Jumper1.Controllers.States
 {
-   public class InitialState : State
+   class DrawLevelState : State
    {
-      public InitialState(State nextState)
+      public DrawLevelState(State nextState)
           : base(nextState) { }
 
       public override void Execute(GameTime gameTime)
       {
-         //Level.InitialiseLevel();
-         MainMenu.InitialiseMainMenu();
       }
    }
 }

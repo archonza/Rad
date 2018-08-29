@@ -9,22 +9,22 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Jumper1.Controllers.States
 {
-   public class DisplayMainMenuState : State
+   public class DrawMainMenuState : State
    {
-      public DisplayMainMenuState(State nextState)
+      public DrawMainMenuState(State nextState)
           : base(nextState) { }
 
-      public override void Execute()
+      public override void Execute(GameTime gameTime)
       {
          /* Do nothing for now */
          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.D1))
          {
-            NextState = StateController.States["DisplayLevelState"];
+            NextState = StateController.States["DrawLevelState"];
             StateController.ChangeState();
          }
          else if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.D2))
          {
-            NextState = StateController.States["DisplayLevelBuilderState"];
+            NextState = StateController.States["DrawLevelBuilderState"];
             StateController.ChangeState();
          }
       }

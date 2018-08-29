@@ -1,4 +1,5 @@
 ﻿using Jumper1.Models;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Jumper1.Controllers.States
       public LevelCompleteState(State nextState)
           : base(nextState) { }
 
-      public override void Execute()
+      public override void Execute(GameTime gameTime)
       {
          if (Level.Number == 3)
          {

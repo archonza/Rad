@@ -45,10 +45,16 @@ namespace Jumper1.Views.Renderers
          levelUIList[levelNumber-1].Draw(spriteBatch);
       }
 
-      public override void DrawCharacter(int positionX, int positionY)
+      public override void ClearCharacter(float positionX, float positionY)
       {
          spriteBatch = StartupController.game.spriteBatch;
-         characterUI.Draw(spriteBatch);
+         characterUI.Clear(spriteBatch, positionX, positionY);
+      }
+
+      public override void DrawCharacter(float positionX, float positionY)
+      {
+         spriteBatch = StartupController.game.spriteBatch;
+         characterUI.Draw(spriteBatch, positionX, positionY);
       }
 
       public override void DrawMainMenu(List<string> textItems, List<int> textItemsPositionX, List<int> textItemsPositionY)
