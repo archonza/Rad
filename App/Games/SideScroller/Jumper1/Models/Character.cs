@@ -14,34 +14,58 @@ namespace Jumper1.Models
       JumpProgress,
       JumpComplete
    }
+
+   public enum EHorizontalMoveState
+   {
+      Stop,
+      TurnLeft,
+      TurnRight
+   }
+
    public class Character
    {
-      public static float CurrentPositionX { get; private set; } = 0f; // This initialises the property to zero, states that it can publically be retrieved and privately set.
-      public static float CurrentPositionY { get; private set; } = 447f-31f;
+      public static float CurrentPositionX { get; private set; } = 0f;
+      public static float CurrentPositionY { get; private set; } = 447f - 31f;
       public static float PreviousPositionX { get; private set; } = CurrentPositionX;
       public static float PreviousPositionY { get; private set; } = CurrentPositionY;
-      public static uint CurrentScore { get; private set; } = 0; // Default score is 0, this can be publicly retrieved and privately set
-      public static string Name { get; set; } = "Player1"; // Default name is Player1
+      public static uint CurrentScore { get; private set; } = 0;
+      public static string Name { get; set; } = "Player1";
       readonly static double START_VELOCITY_X = 0.5;
       readonly static double MAX_VELOCITY_X = 3.0;
       public static double CurrentVelocityX { get; private set; } = START_VELOCITY_X;
       readonly static double START_VELOCITY_Y = 0.0;
       public static double CurrentVelocityY { get; private set; } = START_VELOCITY_Y;
       public static EJumpState JumpState { get; set; } = EJumpState.Initial;
+      public static EHorizontalMoveState HorizontalMoveState { get; set; } = EHorizontalMoveState.Stop;
+      public static double MoveLeftActionDuration { get; set; } = 0.0;
+      public static double MoveRightActionDuration { get; set; } = 0.0;
 
-      public static void Update(double actionDuration, bool turnLeft, bool turnRight)
+      public static void Update()
       {
-         PreviousPositionX = CurrentPositionX;
          PreviousPositionY = CurrentPositionY;
-         CurrentVelocityX = CalculateCurrentVelocityX(actionDuration);
+         CurrentVelocityX = CalculateCurrentVelocityX();
 
-         if (turnLeft == true)
+         if ((HorizontalMoveState == EHorizontalMoveState.TurnLeft) &&
+             ((CurrentPositionX - (float)CurrentVelocityX) < 0))
          {
+            HorizontalMoveState = EHorizontalMoveState.Stop;
+         }
+         else if ((HorizontalMoveState == EHorizontalMoveState.TurnRight) &&
+             (((CurrentPositionX + (float)CurrentVelocityX) + 16 > 800)))
+         {
+            HorizontalMoveState = EHorizontalMoveState.Stop;
+         }
+
+         if (HorizontalMoveState == EHorizontalMoveState.TurnLeft)
+         {
+            PreviousPositionX = CurrentPositionX;
             CurrentPositionX = CurrentPositionX - (float)CurrentVelocityX;
          }
 
-         if (turnRight == true)
+         if (HorizontalMoveState == EHorizontalMoveState.TurnRight)
          {
+            PreviousPositionX = CurrentPositionX;
+            /* Ensure we don't scroll off right side of screen */
             CurrentPositionX = CurrentPositionX + (float)CurrentVelocityX;
          }
 
@@ -58,13 +82,20 @@ namespace Jumper1.Models
          {
             double i = 1;
             CurrentVelocityY += 0.20 * i;
+
+            /* If jump is in progress and left/right movement has stopped, save previous 
+             * position as jump will have some affect on left/right movement */
+            if (HorizontalMoveState == EHorizontalMoveState.Stop)
+            {
+               PreviousPositionX = CurrentPositionX;
+            }
          }
 
          /* If pos y is passed ground, restore it to original */
-         if (Character.CurrentPositionY >= 447.0f - 31f)
+         if (CurrentPositionY > 447.0f - 31f)
          {
             JumpState = EJumpState.JumpComplete;
-            Character.CurrentPositionY = 447.0f - 31f;
+            CurrentPositionY = 447.0f - 31f;
          }
 
          if ((JumpState == EJumpState.JumpComplete) || (JumpState == EJumpState.Initial))
@@ -79,9 +110,25 @@ namespace Jumper1.Models
          CurrentScore = CurrentScore + elapsedTime;
       }
 
-      private static double CalculateCurrentVelocityX(double actionDuration)
+      private static double CalculateCurrentVelocityX()
       {
-         double tempVelocity = START_VELOCITY_X + (actionDuration / 1000);
+         double actionDuration;
+         double tempVelocity;
+
+         if (HorizontalMoveState == EHorizontalMoveState.TurnLeft)
+         {
+            actionDuration = MoveLeftActionDuration;
+         }
+         else if (HorizontalMoveState == EHorizontalMoveState.TurnRight)
+         {
+            actionDuration = MoveRightActionDuration;
+         }
+         else
+         {
+            actionDuration = 0.0;
+         }
+
+         tempVelocity = START_VELOCITY_X + (actionDuration / 1000);
          if (tempVelocity > MAX_VELOCITY_X)
          {
             tempVelocity = MAX_VELOCITY_X;

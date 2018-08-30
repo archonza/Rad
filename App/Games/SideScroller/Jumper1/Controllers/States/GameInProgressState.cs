@@ -13,8 +13,6 @@ namespace Jumper1.Controllers.States
    {
       TimeSpan turnLeftTimer = TimeSpan.Zero;
       TimeSpan turnRightTimer = TimeSpan.Zero;
-      bool turnRight = false;
-      bool turnLeft = false;
 
       public GameInProgressState(State nextState)
           : base(nextState) { }
@@ -27,18 +25,29 @@ namespace Jumper1.Controllers.States
          if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Left)) &&
              (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Right)))
          {
-            turnLeft = false;
-            turnRight = false;
+            Character.HorizontalMoveState = EHorizontalMoveState.Stop;
          }
          else if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Left))
          {
             turnLeftTimer += gameTime.ElapsedGameTime;
-            turnLeft = true;
+            Character.MoveLeftActionDuration = turnLeftTimer.TotalMilliseconds;
+            Character.HorizontalMoveState = EHorizontalMoveState.TurnLeft;
          }
          else if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Right))
          {
             turnRightTimer += gameTime.ElapsedGameTime;
-            turnRight = true;
+            Character.MoveRightActionDuration = turnRightTimer.TotalMilliseconds;
+            Character.HorizontalMoveState = EHorizontalMoveState.TurnRight;
+         }
+         else
+         {
+            /* Always complete the jump */
+            if (Character.JumpState != EJumpState.JumpProgress)
+            {
+               Character.HorizontalMoveState = EHorizontalMoveState.Stop;
+               turnLeftTimer = TimeSpan.Zero;
+               turnRightTimer = TimeSpan.Zero;
+            }
          }
 
          if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Space)) &&
@@ -47,25 +56,16 @@ namespace Jumper1.Controllers.States
             Character.JumpState = EJumpState.JumpInitiate;
          }
 
-         if (turnLeft == true)
-         {
-            turnRight = false;
-            Character.Update(turnLeftTimer.TotalMilliseconds, turnLeft, turnRight);
-         }
-         else if (turnRight == true)
-         {
-            turnLeft = false;
-            Character.Update(turnRightTimer.TotalMilliseconds, turnLeft, turnRight);
-         }
+         //if (Keyboard.GetState().IsKeyDown(Keys.Left) == false)
+         //{
+         //   turnLeftTimer = TimeSpan.Zero;
+         //}
+         //if (Keyboard.GetState().IsKeyDown(Keys.Right) == false)
+         //{
+         //   turnRightTimer = TimeSpan.Zero;
+         //}
 
-         if (Keyboard.GetState().IsKeyDown(Keys.Left) == false)
-         {
-            turnLeftTimer = TimeSpan.Zero;
-         }
-         if (Keyboard.GetState().IsKeyDown(Keys.Right) == false)
-         {
-            turnRightTimer = TimeSpan.Zero;
-         }
+         Character.Update();
       }
    }
 }

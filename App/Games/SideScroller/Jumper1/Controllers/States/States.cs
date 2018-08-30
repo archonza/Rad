@@ -47,7 +47,6 @@ namespace Jumper1.Controllers.States
          }
          else if (StateController.CurrentState == StateController.States["GameInProgressState"])
          {
-            Console.WriteLine("Draw1");
             renderer.ClearCharacter(Character.PreviousPositionX, Character.PreviousPositionY);
             renderer.DrawCharacter(Character.CurrentPositionX, Character.CurrentPositionY);
          }

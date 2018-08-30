@@ -32,7 +32,7 @@ namespace Jumper1.Controllers
          graphics.PreferredBackBufferWidth = 800;
          graphics.PreferredBackBufferHeight = 600;
          IsFixedTimeStep = true; // Ensure draw is always called after update
-         graphics.ToggleFullScreen();
+         //graphics.ToggleFullScreen();
          graphics.ApplyChanges();
 
          // TODO: Add your initialization logic here
