@@ -1,4 +1,5 @@
 ﻿using Jumper1.Models;
+using Jumper1.Views.Renderers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,16 @@ namespace Jumper1.Controllers.States
 
       public override void Execute(GameTime gameTime)
       {
-         if (Level.Number == 3)
+         if (LevelManager.Number == 3)
          {
-            Level.ResetLevel();
+            LevelManager.ResetLevel();
             StateController.ResetState();
          }
+      }
+
+      public override void Draw(GameTime gameTime, MonoGameRenderer renderer)
+      {
+         throw new NotImplementedException();
       }
    }
 }

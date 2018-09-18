@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jumper1.Models;
+using Jumper1.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -27,6 +28,11 @@ namespace Jumper1.Controllers.States
             NextState = StateController.States["DrawLevelBuilderState"];
             StateController.ChangeState();
          }
+      }
+
+      public override void Draw(GameTime gameTime, MonoGameRenderer renderer)
+      {
+         renderer.DrawMainMenu(MainMenu.ItemTextList, MainMenu.ItemPositionXList, MainMenu.ItemPositionYList);
       }
    }
 }

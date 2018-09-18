@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Jumper1.Models;
+using Jumper1.Views.Renderers;
 using Microsoft.Xna.Framework;
 
 namespace Jumper1.Controllers.States
@@ -15,8 +16,12 @@ namespace Jumper1.Controllers.States
 
       public override void Execute(GameTime gameTime)
       {
-         //Level.InitialiseLevel();
          MainMenu.InitialiseMainMenu();
+      }
+
+      public override void Draw(GameTime gameTime, MonoGameRenderer renderer)
+      {
+         throw new NotImplementedException();
       }
    }
 }

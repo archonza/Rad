@@ -1,4 +1,6 @@
-﻿using Jumper1.Views.Renderers;
+﻿using Jumper1.Models;
+using Jumper1.Models.Levels;
+using Jumper1.Views.Renderers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -38,7 +40,7 @@ namespace Jumper1.Controllers
          // TODO: Add your initialization logic here
          renderer = new MonoGameRenderer();
 
-         StateController.Initialise();
+         StateController.Initialise(renderer);
          StateController.CurrentState = StateController.States["InitialState"];
          StateController.CurrentState.Execute(null);
          StateController.ChangeState();

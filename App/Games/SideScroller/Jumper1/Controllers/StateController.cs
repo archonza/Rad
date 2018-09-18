@@ -1,4 +1,7 @@
 ﻿using Jumper1.Controllers.States;
+using Jumper1.Models;
+using Jumper1.Models.Levels;
+using Jumper1.Views.Renderers;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -21,15 +24,22 @@ namespace Jumper1.Controllers
       private static GameInProgressState gameInProgressState;
       //private static LevelCompleteState levelCompleteState;
       //private static NextLevelState nextLevelState;
+      private static AbstractLevel level;
+      private static Character character;
+      private static CollusionManager collusionManager;
 
-      public static void Initialise()
+      public static void Initialise(MonoGameRenderer renderer)
       {
          //levelCompleteState = new LevelCompleteState(nextLevelState);
          //nextLevelState = new NextLevelState(levelInProgressState);
-         gameInProgressState = new GameInProgressState(initialState);
+         collusionManager = new CollusionManager();
+         level = new LevelOne(null, collusionManager);
+         character = new Character(level, collusionManager);
+
+         gameInProgressState = new GameInProgressState(initialState, level, character);
          drawCompleteState = new DrawCompleteState(initialState);
-         drawCharacterState = new DrawCharacterState(initialState);
-         drawLevelState = new DrawLevelState(initialState);
+         drawCharacterState = new DrawCharacterState(initialState, character);
+         drawLevelState = new DrawLevelState(initialState, level);
          drawLevelBuilderState = new DrawLevelBuilderState(initialState);
          drawMainMenuState = new DrawMainMenuState(initialState);
          initialState = new InitialState(drawMainMenuState);

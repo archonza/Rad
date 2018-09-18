@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Jumper1.Views.Renderers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,11 @@ namespace Jumper1.Controllers.States
       {
          NextState = StateController.States["GameInProgressState"];
          StateController.ChangeState();
+      }
+
+      public override void Draw(GameTime gameTime, MonoGameRenderer renderer)
+      {
+         throw new NotImplementedException();
       }
    }
 }

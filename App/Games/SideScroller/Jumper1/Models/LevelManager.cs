@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jumper1.Models.Levels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace Jumper1.Models
 {
-   public static class Level
+   public static class LevelManager
    {
-      public static void InitialiseLevel()
+
+      public static void Initialise()
       {
 
       }
+
 
       public static int Number { get; private set; } = 1; // level number is 1 by default
 
