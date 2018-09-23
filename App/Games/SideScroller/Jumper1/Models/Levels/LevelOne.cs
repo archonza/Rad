@@ -27,7 +27,6 @@ namespace Jumper1.Models.Levels
       {
          collusionManager.AddCollider(new Collider(
             1,
-            EColliderMoveDirection.None,
             EColliderType.WorldFixed,
             BoundaryLeft + 200,
             BoundaryBottom - 31,
@@ -39,7 +38,6 @@ namespace Jumper1.Models.Levels
             BoundaryBottom));
          collusionManager.AddCollider(new Collider(
                2,
-               EColliderMoveDirection.None,
                EColliderType.WorldFixed,
                300,
                BoundaryBottom - 31,

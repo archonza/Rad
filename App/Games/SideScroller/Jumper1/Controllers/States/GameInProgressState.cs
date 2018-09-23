@@ -84,47 +84,8 @@ namespace Jumper1.Controllers.States
             character.JumpState = EJumpState.JumpInitiate;
          }
 
-         //if (Keyboard.GetState().IsKeyDown(Keys.Left) == false)
-         //{
-         //   turnLeftTimer = TimeSpan.Zero;
-         //}
-         //if (Keyboard.GetState().IsKeyDown(Keys.Right) == false)
-         //{
-         //   turnRightTimer = TimeSpan.Zero;
-         //}
-
          character.Update();
 
-         //if (character.HorizontalMoveState == EHorizontalMoveState.TurnRight)
-         //{
-         //   collusionManager.Update(
-         //      0,
-         //      EColliderMoveDirection.Forward,
-         //      character.CurrentPositionX,
-         //      character.CurrentPositionY,
-         //      character.CurrentPositionX + character.Width,
-         //      character.CurrentPositionY,
-         //      character.CurrentPositionX,
-         //      character.CurrentPositionY + character.Height,
-         //      character.CurrentPositionX + character.Width,
-         //      character.CurrentPositionY + character.Height
-         //      );
-         //}
-         //else if (character.HorizontalMoveState == EHorizontalMoveState.TurnLeft)
-         //{
-         //   collusionManager.Update(
-         //      0,
-         //      EColliderMoveDirection.Backwards,
-         //      character.CurrentPositionX,
-         //      character.CurrentPositionY,
-         //      character.CurrentPositionX + character.Width,
-         //      character.CurrentPositionY,
-         //      character.CurrentPositionX,
-         //      character.CurrentPositionY + character.Height,
-         //      character.CurrentPositionX + character.Width,
-         //      character.CurrentPositionY + character.Height
-         //      );
-         //}
       }
 
       public override void Draw(GameTime gameTime, MonoGameRenderer renderer)

@@ -127,41 +127,23 @@ namespace Jumper1.Models
          {
             CurrentPositionX = PreviousPositionX;
             CurrentPositionY = PreviousPositionY;
+            UpdateCollider();
          }
       }
 
       public void UpdateCollider()
       {
-         if (HorizontalMoveState == EHorizontalMoveState.TurnRight)
-         {
-            collusionManager.Update(
-               0,
-               EColliderMoveDirection.Forward,
-               CurrentPositionX,
-               CurrentPositionY,
-               CurrentPositionX + Width,
-               CurrentPositionY,
-               CurrentPositionX,
-               CurrentPositionY + Height,
-               CurrentPositionX + Width,
-               CurrentPositionY + Height
-               );
-         }
-         else if (HorizontalMoveState == EHorizontalMoveState.TurnLeft)
-         {
-            collusionManager.Update(
-               0,
-               EColliderMoveDirection.Backwards,
-               CurrentPositionX,
-               CurrentPositionY,
-               CurrentPositionX + Width,
-               CurrentPositionY,
-               CurrentPositionX,
-               CurrentPositionY + Height,
-               CurrentPositionX + Width,
-               CurrentPositionY + Height
-               );
-         }
+         collusionManager.Update(
+            0,
+            CurrentPositionX,
+            CurrentPositionY,
+            CurrentPositionX + Width,
+            CurrentPositionY,
+            CurrentPositionX,
+            CurrentPositionY + Height,
+            CurrentPositionX + Width,
+            CurrentPositionY + Height
+            );
       }
 
       public void UpdateScore(uint elapsedTime)
@@ -199,7 +181,6 @@ namespace Jumper1.Models
       {
          collusionManager.AddCollider(new Collider(
             0,
-            EColliderMoveDirection.None,
             EColliderType.Character,
             CurrentPositionX,
             CurrentPositionY,
